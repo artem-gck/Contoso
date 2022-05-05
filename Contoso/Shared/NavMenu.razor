@@ -1,0 +1,49 @@
+﻿<div class="menu">
+    <div class="fields-input">
+        <div class="lables">
+            <span class="name">Артём Гацко</span>
+            <span class="position">Руководитель отдела продаж</span>
+        </div>
+        <div class="buttons">
+            <button @onclick="GoProduction">
+                <img src="../images/Production-gray.png" width="30" /> 
+                <span>Продукция</span>
+            </button>
+            <button @onclick="GoClients">
+                <img src="../images/Clients-gray.png" width="30" /> 
+                <span>Клиенты</span>
+            </button>
+            <button @onclick="GoPrice">
+                <img src="../images/Price-gray.png" width="30" /> 
+                <span>Цены</span>
+            </button>
+            <button @onclick="GoOrders">
+                <img src="../images/Orders-gray.png" width="30" /> 
+                <span>Заказы</span>
+            </button>
+        </div>
+    </div>
+    <div class="button-exit">
+        <button @onclick="GoExit">
+            <img src="../images/Exit.png"  width="40" /> 
+            <span>Выйти из аккаунта</span>
+        </button>
+    </div>
+</div>
+
+@code {
+    private void GoProduction()
+        => NavManager.NavigateTo("/production");
+
+    private void GoClients()
+        => NavManager.NavigateTo("/clients");
+
+    private void GoPrice()
+        => NavManager.NavigateTo("/price");
+
+    private void GoOrders()
+        => NavManager.NavigateTo("/orders");
+
+    private void GoExit()
+        => NavManager.NavigateTo("/login");
+}

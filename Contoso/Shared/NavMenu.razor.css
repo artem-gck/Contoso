@@ -1,0 +1,78 @@
+.menu {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.fields-input {
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.button-exit {
+    height: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.lables {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 100px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.buttons span {
+    font-family: 'Montserrat';
+    font-size: 20px;
+    font-weight: 500;
+    color: #72737A;
+    padding-left: 20px;
+}
+
+.buttons button {
+    margin-bottom: 30px;
+}
+
+.fields-input button {
+    text-align: left;
+    padding-left: 30px;
+}
+
+.lables span {
+    padding-left: 30px;
+}
+
+.name {
+    font-family: 'Montserrat';
+    font-size: 22px;
+    font-weight: 500;
+    color: #000000;
+}
+
+.position {
+    font-family: 'Montserrat';
+    font-size: 18px;
+    font-weight: 300;
+    color: #72737A;
+}
+
+button {
+    border: 0px;
+    background-color: white;
+}
+
+.button-exit span {
+    font-family: 'Montserrat';
+    font-size: 16px;
+    font-weight: 300;
+    color: #72737A;
+}
