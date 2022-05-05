@@ -1,25 +1,29 @@
 ﻿<div class="menu">
     <div class="fields-input">
         <div class="lables">
-            <span class="name">Артём Гацко</span>
+            <span class="name" style="">Артём Гацко</span>
             <span class="position">Руководитель отдела продаж</span>
         </div>
         <div class="buttons">
             <button @onclick="GoProduction">
-                <img src="../images/Production-gray.png" width="30" /> 
-                <span>Продукция</span>
+                <div class="rectangle" style="@(select == 0 ? blueRectangleStyle : whiteRectangleStyle)"></div>
+                <img src="@(select == 0 ? blueProduction : grayProduction)" width="30" /> 
+                <span style="@(select == 0 ? blueStyle : grayStyle)">Продукция</span>
             </button>
             <button @onclick="GoClients">
-                <img src="../images/Clients-gray.png" width="30" /> 
-                <span>Клиенты</span>
+                <div class="rectangle" style="@(select == 1 ? blueRectangleStyle : whiteRectangleStyle)"></div>
+                <img src="@(select == 1 ? blueClients : grayClients)" width="30" /> 
+                <span style="@(select == 1 ? blueStyle : grayStyle)">Клиенты</span>
             </button>
             <button @onclick="GoPrice">
-                <img src="../images/Price-gray.png" width="30" /> 
-                <span>Цены</span>
+                <div class="rectangle" style="@(select == 2 ? blueRectangleStyle : whiteRectangleStyle)"></div>
+                <img src="@(select == 2 ? bluePrice : grayPrice)" width="30" /> 
+                <span style="@(select == 2 ? blueStyle : grayStyle)">Цены</span>
             </button>
             <button @onclick="GoOrders">
-                <img src="../images/Orders-gray.png" width="30" /> 
-                <span>Заказы</span>
+                <div class="rectangle" style="@(select == 3 ? blueRectangleStyle : whiteRectangleStyle)"></div>
+                <img src="@(select == 3 ? blueOrders : grayOrders)" width="30" /> 
+                <span style="@(select == 3 ? blueStyle : grayStyle)">Заказы</span>
             </button>
         </div>
     </div>
@@ -32,18 +36,49 @@
 </div>
 
 @code {
+    private byte select = 0;
+
+    private string whiteRectangleStyle = "background-color: white;";
+    private string blueRectangleStyle = "background-color: #146581;";
+
+    private string blueStyle = "color: #146581;";
+    private string grayStyle = "color: #72737A;";
+
+    private string blueProduction = "../images/Production-blue.png";
+    private string grayProduction = "../images/Production-gray.png";
+    private string blueClients = "../images/Clients-blue.png";
+    private string grayClients = "../images/Clients-gray.png";
+    private string bluePrice = "../images/Price-blue.png";
+    private string grayPrice = "../images/Price-gray.png";
+    private string blueOrders = "../images/Orders-blue.png";
+    private string grayOrders = "../images/Orders-gray.png";
+
     private void GoProduction()
-        => NavManager.NavigateTo("/production");
+    {
+        select = 0;
+        NavManager.NavigateTo("/production");
+    }
 
     private void GoClients()
-        => NavManager.NavigateTo("/clients");
+    {
+        select = 1;
+        NavManager.NavigateTo("/clients");
+    }
 
     private void GoPrice()
-        => NavManager.NavigateTo("/price");
+    {
+        select = 2;
+        NavManager.NavigateTo("/price");
+    }
 
     private void GoOrders()
-        => NavManager.NavigateTo("/orders");
+    {
+        select = 3;
+        NavManager.NavigateTo("/orders");
+    }
 
     private void GoExit()
-        => NavManager.NavigateTo("/login");
+    {
+        NavManager.NavigateTo("/login");
+    }
 }
