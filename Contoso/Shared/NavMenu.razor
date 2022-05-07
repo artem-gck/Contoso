@@ -1,8 +1,8 @@
 ﻿<div class="menu">
     <div class="fields-input">
         <div class="lables">
-            <span class="name" style="">Артём Гацко</span>
-            <span class="position">Руководитель отдела продаж</span>
+            <span class="name" style="">@Name</span>
+            <span class="position">@Position</span>
         </div>
         <div class="buttons">
             <button @onclick="GoProduction">
@@ -53,6 +53,15 @@
     private string blueOrders = "../images/Orders-blue.png";
     private string grayOrders = "../images/Orders-gray.png";
 
+    private string Name { get; set; }
+    private string Position { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Name = "Артём Гацко";
+        Position = "Руководитель отдела продаж";
+    }
+
     private void GoProduction()
     {
         select = 0;
@@ -68,7 +77,7 @@
     private void GoPrice()
     {
         select = 2;
-        NavManager.NavigateTo("/price");
+        NavManager.NavigateTo("/prices");
     }
 
     private void GoOrders()

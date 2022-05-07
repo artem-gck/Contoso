@@ -1,0 +1,63 @@
+﻿@page "/orders"
+
+@inject IOrdersService _ordersService
+
+<div class="lable">
+    <span class="lable-production">Заказы</span>
+</div>
+<div class="container vertical">
+    <div class="container vertical" style="--use-accessibility:true;">
+        @if (orders != null)
+        {
+            <div style="overflow: hidden">
+                <IgbDataGrid Height="720px" 
+                                Width="100%"
+                                HeaderBackground="transparent"
+                                BorderWidthBottom="0"
+                                BorderWidthLeft="0"
+                                BorderWidthRight="0"
+                                BorderWidthTop="0"
+                                HeaderFontFamily="Montserrat"
+                                CellFontFamily="Montserrat"
+                                HeaderRowSeparatorBackground="transparent"
+                                HeaderSeparatorWidth="0"
+                                DataSource="orders"
+                                AutoGenerateColumns="false"
+                                SelectionMode="GridSelectionMode.SingleRow"
+                                CellClicked="e => OnSelectRowClick(e)">
+                    <IgbTextColumn Field="Customer" Width="@("*>250")" HeaderText="Заказчик" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                    <IgbTextColumn Field="ProductName" Width="@("*>150")" HeaderText="Наименование" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                    <IgbTextColumn Field="Color" Width="@("*>100")" HeaderText="Цвет" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                    <IgbNumericColumn Field="Amount" Width="@("*>100")" HeaderText="Количество" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                    <IgbNumericColumn Field="Price" Width="@("*>100")" HeaderText="Стоимость" PositiveSuffix=" р." NegativeSuffix=" р." HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                    <IgbDateTimeColumn Field="Date" Width="@("*>100")" HeaderText="Дата" DateTimeFormat="DateTimeFormats.DateShort" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                    <IgbTextColumn Field="Pay" Width="@("*>100")" HeaderText="Оплата" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                    <IgbTextColumn Field="Status" Width="@("*>100")" HeaderText="Статус" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                </IgbDataGrid>
+            </div>
+        }
+    </div>
+</div>
+<div class="buttons">
+    <button @onclick="Add">Добавить</button>
+</div>
+
+@code {
+    private int id;
+    private List<Order> orders;
+
+    protected override async Task OnInitializedAsync()
+    {
+        orders = await _ordersService.GetOrders();
+    }
+
+    private void Add()
+    {
+        NavManager.NavigateTo("/orders/add");
+    }
+
+    private void OnSelectRowClick(IgbGridCellEventArgs e)
+    {
+        id = e.CellInfo.DataRow;
+    }
+}

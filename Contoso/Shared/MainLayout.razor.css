@@ -6,6 +6,7 @@
 
 main {
     flex: 1;
+    background-color: #EEEFF3;
 }
 
 .sidebar {
@@ -77,5 +78,6 @@ main {
     .top-row, article {
         padding-left: 2rem !important;
         padding-right: 1.5rem !important;
+        height: 100%;
     }
 }

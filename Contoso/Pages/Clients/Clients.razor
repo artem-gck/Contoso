@@ -1,0 +1,66 @@
+﻿@page "/clients"
+
+@inject IClientsService _clientsService
+
+<div class="lable">
+    <span class="lable-production">Клиенты</span>
+</div>
+<div class="container vertical">
+    <div class="container vertical" style="--use-accessibility:true;">
+        @if (clients != null)
+        {
+            <div style="overflow: hidden">
+                <IgbDataGrid Height="720px" 
+                                Width="100%"
+                                HeaderBackground="transparent"
+                                BorderWidthBottom="0"
+                                BorderWidthLeft="0"
+                                BorderWidthRight="0"
+                                BorderWidthTop="0"
+                                HeaderFontFamily="Montserrat"
+                                CellFontFamily="Montserrat"
+                                HeaderRowSeparatorBackground="transparent"
+                                HeaderSeparatorWidth="0"
+                                DataSource="clients"
+                                AutoGenerateColumns="false"
+                                SelectionMode="GridSelectionMode.SingleRow"
+                                CellClicked="e => OnSelectRowClick(e)">
+                    <IgbTextColumn Field="ProductName" Width="@("*>100")" HeaderText="Название" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                    <IgbTextColumn Field="Location" Width="@("*>100")" HeaderText="Местоположение" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                    <IgbTextColumn Field="ContactName" Width="@("*>100")" HeaderText="Контактное лицо" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                    <IgbTextColumn Field="NumberOfPhone" Width="@("*>100")" HeaderText="Номер телефона" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                    <IgbTextColumn Field="Email" Width="@("*>100")" HeaderText="Электронная почта" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                </IgbDataGrid>
+            </div>
+        }
+    </div>
+</div>
+<div class="buttons">
+    <button @onclick="Add">Добавить</button>
+    <button @onclick="Edit">Обновить</button>
+</div>
+
+@code {
+    private int id;
+    private List<Client> clients;
+
+    protected override async Task OnInitializedAsync()
+    {
+        clients = await _clientsService.GetClients();
+    }
+
+    private void Add()
+    {
+        NavManager.NavigateTo("/clients/add");
+    }
+
+    private void Edit()
+    {
+        NavManager.NavigateTo($"/clients/edit/{id}");
+    }
+
+    private void OnSelectRowClick(IgbGridCellEventArgs e)
+    {
+        id = e.CellInfo.DataRow;
+    }
+}

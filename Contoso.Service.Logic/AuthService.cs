@@ -1,7 +1,7 @@
-﻿using Contoso.Services.Models;
+﻿using Contoso.Service.Models;
 using System.Net.Http.Headers;
 
-namespace Contoso.Services.Logic
+namespace Contoso.Service.Logic
 {
     public class AuthService : IAuthService
     {

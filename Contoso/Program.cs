@@ -1,6 +1,7 @@
 using Contoso;
-using Contoso.Services;
-using Contoso.Services.Logic;
+using Contoso.Service;
+using Contoso.Service.Logic;
+using IgniteUI.Blazor.Controls;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using System.Net.Http.Headers;
@@ -18,6 +19,12 @@ httpClient.DefaultRequestHeaders.Accept.Clear();
 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
 builder.Services.AddScoped(sp => httpClient);
+builder.Services.AddScoped(typeof(IIgniteUIBlazor), typeof(IgniteUIBlazor));
+
 builder.Services.AddTransient<IAuthService, AuthService>();
+builder.Services.AddTransient<IProductionService, ProductionService>();
+builder.Services.AddTransient<IClientsService, ClientsService>();
+builder.Services.AddTransient<IOrdersService, OrdersService>();
+builder.Services.AddTransient<IPricesService, PricesService>();
 
 await builder.Build().RunAsync();

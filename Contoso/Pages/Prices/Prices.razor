@@ -1,0 +1,84 @@
+﻿@page "/prices"
+
+@inject IPricesService _pricesService
+
+<div class="prices">
+    <div class="left-side">
+        <div class="lable">
+            <span class="lable-production">Заказы</span>
+        </div>
+        <div class="container vertical">
+            <div class="container vertical" style="--use-accessibility:true;">
+                @if (prices != null)
+                {
+                    <div style="overflow: hidden">
+                        <IgbDataGrid Height="720px" 
+                                        Width="800px"
+                                        HeaderBackground="transparent"
+                                        BorderWidthBottom="0"
+                                        BorderWidthLeft="0"
+                                        BorderWidthRight="0"
+                                        BorderWidthTop="0"
+                                        HeaderFontFamily="Montserrat"
+                                        CellFontFamily="Montserrat"
+                                        HeaderRowSeparatorBackground="transparent"
+                                        HeaderSeparatorWidth="0"
+                                        DataSource="prices"
+                                        AutoGenerateColumns="false"
+                                        SelectionMode="GridSelectionMode.SingleRow">
+                            <IgbTextColumn Field="ProductName" Width="@("*>100")" HeaderText="Наименование" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                            <IgbDateTimeColumn Field="Date" Width="@("*>100")" HeaderText="Дата установления" DateTimeFormat="DateTimeFormats.DateShort" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                            <IgbNumericColumn Field="PriceOfProduct" Width="@("*>100")" HeaderText="Цена" PositiveSuffix=" р." NegativeSuffix=" р." HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                        </IgbDataGrid>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="right-side">
+        <div class="lable">
+            <span class="add-price">Добавить цену</span>
+        </div>
+        <div class="inputes">
+            <span>Название</span>
+            <select class="select" @bind="NameOfProduct">
+                @if (listOfNames != null)
+                {
+                    @foreach (var name in listOfNames)
+                    {
+                        <option value="@name">@name</option>
+                    }
+                }
+            </select>
+            <span>Цена</span>
+            <input type="number" @bind="Price"></input>
+        </div>
+        <div class="buttons">
+            <button @onclick="Add">Добавить</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string NameOfProduct { get; set; }
+    private decimal Price { get; set; }
+
+    private List<string> listOfNames;
+    private List<Price> prices;
+
+    protected override async Task OnInitializedAsync()
+    {
+        listOfNames = new List<string>() {
+          "Ручка, Standart-L",
+          "Ручка, Medium-L",
+          "Карандаш, Standart-L",
+          "Карандаш, Standart-M"
+        };
+        prices = await _pricesService.GetPrices();
+    }
+
+    private void Add()
+    {
+        
+    }
+}

@@ -1,0 +1,67 @@
+﻿@page "/production"
+
+@inject IProductionService _productionService
+
+<div class="lable">
+    <span class="lable-production">Продукция</span>
+</div>
+<div class="container vertical">
+    <div class="container vertical" style="--use-accessibility:true;">
+        @if (products != null)
+        {
+            <div style="overflow: hidden">
+                <IgbDataGrid Height="720px" 
+                                Width="100%"
+                                HeaderBackground="transparent"
+                                BorderWidthBottom="0"
+                                BorderWidthLeft="0"
+                                BorderWidthRight="0"
+                                BorderWidthTop="0"
+                                HeaderFontFamily="Montserrat"
+                                CellFontFamily="Montserrat"
+                                HeaderRowSeparatorBackground="transparent"
+                                HeaderSeparatorWidth="0"
+                                DataSource="products"
+                                AutoGenerateColumns="false"
+                                SelectionMode="GridSelectionMode.SingleRow"
+                                CellClicked="e => OnSelectRowClick(e)">
+                    <IgbTextColumn Field="Name" Width="@("*>100")" HeaderText="Продукт" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                    <IgbTextColumn Field="Type" Width="@("*>100")" HeaderText="Наименование" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                    <IgbTextColumn Field="Color" Width="@("*>100")" HeaderText="Цвет" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                    <IgbNumericColumn Field="Amount" Width="@("*>100")" HeaderText="Количество" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                    <IgbNumericColumn Field="Price" Width="@("*>100")" HeaderText="Цена" PositiveSuffix=" р." NegativeSuffix=" р." HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                    <IgbDateTimeColumn Field="Date" Width="@("*>100")" HeaderText="Дата" DateTimeFormat="DateTimeFormats.DateShort" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
+                </IgbDataGrid>
+            </div>
+        }
+    </div>
+</div>
+<div class="buttons">
+    <button @onclick="Add">Добавить</button>
+    <button @onclick="Edit">Обновить</button>
+</div>
+
+@code {
+    private int id;
+    private List<Product> products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await _productionService.GetProducts();
+    }
+
+    private void Add()
+    {
+        NavManager.NavigateTo("/production/add");
+    }
+
+    private void Edit()
+    {
+        NavManager.NavigateTo($"/production/edit/{id}");
+    }
+
+    private void OnSelectRowClick(IgbGridCellEventArgs e)
+    {
+        id = e.CellInfo.DataRow;
+    }
+}

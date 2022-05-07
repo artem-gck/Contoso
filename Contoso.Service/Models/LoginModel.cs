@@ -1,4 +1,4 @@
-﻿namespace Contoso.Services.Models
+﻿namespace Contoso.Service.Models
 {
     public class LoginModel
     {

@@ -5,9 +5,9 @@ VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso", "Contoso\Contoso.csproj", "{B63A2B45-A2DC-4A2B-AE4A-4F035BEDC84F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contoso.Service", "Contoso.Service\Contoso.Service.csproj", "{D04B5D01-2EE9-4C28-9579-3EF36AC0E0C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Service", "Contoso.Service\Contoso.Service.csproj", "{D04B5D01-2EE9-4C28-9579-3EF36AC0E0C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contoso.Service.Logic", "Contoso.Service.Logic\Contoso.Service.Logic.csproj", "{7F0E3B5E-2DF2-4C68-B96C-2C59508353B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Service.Logic", "Contoso.Service.Logic\Contoso.Service.Logic.csproj", "{7F0E3B5E-2DF2-4C68-B96C-2C59508353B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

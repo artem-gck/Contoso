@@ -1,6 +1,6 @@
-﻿using Contoso.Services.Models;
+﻿using Contoso.Service.Models;
 
-namespace Contoso.Services
+namespace Contoso.Service
 {
     public interface IAuthService
     {
