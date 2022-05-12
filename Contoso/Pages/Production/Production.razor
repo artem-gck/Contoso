@@ -29,7 +29,6 @@
                     <IgbTextColumn Field="Type" Width="@("*>100")" HeaderText="Наименование" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
                     <IgbTextColumn Field="Color" Width="@("*>100")" HeaderText="Цвет" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
                     <IgbNumericColumn Field="Amount" Width="@("*>100")" HeaderText="Количество" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
-                    <IgbNumericColumn Field="Price" Width="@("*>100")" HeaderText="Цена" PositiveSuffix=" р." NegativeSuffix=" р." HorizontalAlignment="CellContentHorizontalAlignment.Center" />
                     <IgbDateTimeColumn Field="Date" Width="@("*>100")" HeaderText="Дата" DateTimeFormat="DateTimeFormats.DateShort" HorizontalAlignment="CellContentHorizontalAlignment.Center" />
                 </IgbDataGrid>
             </div>
@@ -57,7 +56,7 @@
 
     private void Edit()
     {
-        NavManager.NavigateTo($"/production/edit/{id}");
+        NavManager.NavigateTo($"/production/edit/{products[id].Id}");
     }
 
     private void OnSelectRowClick(IgbGridCellEventArgs e)

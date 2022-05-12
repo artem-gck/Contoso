@@ -1,7 +1,9 @@
 ﻿using Contoso.Service.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,41 +16,20 @@ namespace Contoso.Service.Logic
         public PricesService(HttpClient httpClient)
             => _httpClient = httpClient;
 
+        public async Task<int> AddPrice(Price price)
+        {
+            var resp = await _httpClient.PostAsJsonAsync("/price/add", price);
+
+            return (int)resp.StatusCode;
+        }
+
         public async Task<List<Price>> GetPrices()
         {
-            return new List<Price>()
-            {
-                new Price()
-                {
-                    ProductName = "Ручка, Standart-L",
-                    Date = DateTime.Now,
-                    PriceOfProduct = 12
-                },
-                new Price()
-                {
-                    ProductName = "Ручка, Medium-L",
-                    Date = DateTime.Now,
-                    PriceOfProduct = 93
-                },
-                new Price()
-                {
-                    ProductName = "Карандаш, Standart-L",
-                    Date = DateTime.Now,
-                    PriceOfProduct = 2
-                },
-                new Price()
-                {
-                    ProductName = "Ручка, Standart-L",
-                    Date = DateTime.Now,
-                    PriceOfProduct = 100
-                },
-                new Price()
-                {
-                    ProductName = "Карандаш, Standart-M",
-                    Date = DateTime.Now,
-                    PriceOfProduct = 7
-                },
-            };
+            var resp = await _httpClient.GetAsync("/price");
+            var pricesString = await resp.Content.ReadAsStringAsync();
+            var prices = JsonConvert.DeserializeObject<List<Price>>(pricesString);
+
+            return prices;
         }
     }
 }

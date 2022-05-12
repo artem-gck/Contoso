@@ -10,5 +10,6 @@ namespace Contoso.Service
     public interface IPricesService
     {
         public Task<List<Price>> GetPrices();
+        public Task<int> AddPrice(Price price);
     }
 }

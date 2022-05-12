@@ -1,6 +1,7 @@
 ﻿@page "/prices"
 
 @inject IPricesService _pricesService
+@inject IProductionService _productionService
 
 <div class="prices">
     <div class="left-side">
@@ -41,12 +42,12 @@
         </div>
         <div class="inputes">
             <span>Название</span>
-            <select class="select" @bind="NameOfProduct">
-                @if (listOfNames != null)
+            <select class="select" @bind="ProductName">
+                @if (products != null)
                 {
-                    @foreach (var name in listOfNames)
+                    @foreach (var product in products)
                     {
-                        <option value="@name">@name</option>
+                        <option value="@(product.Name + " " + product.Type)">@(product.Name + " " + product.Type)</option>
                     }
                 }
             </select>
@@ -60,25 +61,32 @@
 </div>
 
 @code {
-    private string NameOfProduct { get; set; }
+    private string ProductName { get; set; }
     private decimal Price { get; set; }
 
-    private List<string> listOfNames;
+    private List<Product> products;
     private List<Price> prices;
+
+    private int statusCode;
 
     protected override async Task OnInitializedAsync()
     {
-        listOfNames = new List<string>() {
-          "Ручка, Standart-L",
-          "Ручка, Medium-L",
-          "Карандаш, Standart-L",
-          "Карандаш, Standart-M"
-        };
+        products = await _productionService.GetProducts();
         prices = await _pricesService.GetPrices();
+
+        ProductName = products[0].Name + " " + products[0].Type;
     }
 
-    private void Add()
+    private async Task Add()
     {
-        
+        var price = prices.FirstOrDefault(pr => pr.ProductName == ProductName);
+
+        price.PriceOfProduct = Price;
+
+        statusCode = await _pricesService.AddPrice(price);
+
+        prices = await _pricesService.GetPrices();
+
+        StateHasChanged();
     }
 }

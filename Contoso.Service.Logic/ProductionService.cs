@@ -23,6 +23,30 @@ namespace Contoso.Service.Logic
             return (int)resp.StatusCode;
         }
 
+        public async Task<int> AddProductsFromFile(string fileContent)
+        {
+            int statusCode = -1;
+            var lines = fileContent.Split('\n');
+
+            foreach (var line in lines)
+            {
+                var fields = line.Split('#');
+
+                var product = new Product()
+                {
+                    Name = fields[0],
+                    Type = fields[1],
+                    Color = fields[2],
+                    Amount = int.Parse(fields[3]),
+                    Price = decimal.Parse(fields[4]),
+                };
+
+                statusCode = await AddProduct(product);
+            }
+
+            return statusCode;
+        }
+
         public async Task<List<Product>> GetProducts()
         {
             var resp = await _httpClient.GetAsync("/products");
@@ -30,6 +54,13 @@ namespace Contoso.Service.Logic
             var products = JsonConvert.DeserializeObject<List<Product>>(productsString);
 
             return products;
+        }
+
+        public async Task<int> UpdateProduct(Product product)
+        {
+            var resp = await _httpClient.PostAsJsonAsync("/products/update", product);
+
+            return (int)resp.StatusCode;
         }
     }
 }

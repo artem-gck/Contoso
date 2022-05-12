@@ -1,9 +1,9 @@
-﻿@page "/production/add"
+﻿@page "/production/edit/{id}"
 
 @inject IProductionService _productionService
 
 <div class="lable">
-    <span class="lable-production">Добавить продукцию</span>
+    <span class="lable-production">Обновить продукт</span>
 </div>
 <div class="container">
     <div class="left-side">
@@ -22,26 +22,41 @@
     </div>
 </div>
 <div class="buttons">
-    <InputFile OnChange="@LoadFiles" multiple />
-    <button @onclick="Add">Добавить</button>
-    <button @onclick="AddFromFile">Добавить из файла</button>
+    <button @onclick="Update">Обновить</button>
 </div>
 
 @code {
+    [Parameter]
+    public string? Id { get; set; }
+
     private string NameField { get; set; }
     private string TypeField { get; set; }
     private string ColorField { get; set; }
     private int AmountField { get; set; }
     private decimal PriceField { get; set; }
 
-    private IBrowserFile loadedFile;
-
+    private int id;
     private int statusCode;
 
-    private async Task Add()
+    protected override async Task OnInitializedAsync()
+    {
+        id = int.Parse(Id);
+        var products = await _productionService.GetProducts();
+
+        var product = products.FirstOrDefault(prod => prod.Id == id);
+
+        NameField = product.Name;
+        TypeField = product.Type;
+        ColorField = product.Color;
+        AmountField = (int)product.Amount;
+        PriceField = (decimal)product.Price;
+    }
+
+    private async Task Update()
     {
         var product = new Product()
             {
+                Id = id,
                 Name = NameField,
                 Type = TypeField,
                 Color = ColorField,
@@ -49,29 +64,8 @@
                 Price = PriceField
             };
 
-        statusCode = await _productionService.AddProduct(product);
+        statusCode = await _productionService.UpdateProduct(product);
 
-        ClearFields();
-    }
-
-    private async Task AddFromFile()
-    {
-        var fileContent = await new StreamReader(loadedFile.OpenReadStream()).ReadToEndAsync();
-
-        statusCode = await _productionService.AddProductsFromFile(fileContent);
-    }
-
-    private void LoadFiles(InputFileChangeEventArgs e)
-    {
-        loadedFile = e.File;
-    }
-
-    private void ClearFields()
-    {
-        NameField = string.Empty;
-        TypeField = string.Empty;
-        ColorField = string.Empty;
-        AmountField = 0;
-        PriceField = 0;
+        NavManager.NavigateTo("/production");
     }
 }
