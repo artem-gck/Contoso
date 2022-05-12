@@ -9,8 +9,8 @@ namespace Contoso.Service.Models
     public class Price
     {
         public int Id { get; set; }
-        public string ProductName { get; set; }
-        public DateTime Date { get; set; }
-        public decimal PriceOfProduct { get; set; }
+        public string? ProductName { get; set; }
+        public DateTime? Date { get; set; }
+        public decimal? PriceOfProduct { get; set; }
     }
 }

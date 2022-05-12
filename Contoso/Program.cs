@@ -12,7 +12,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 var httpClient = new HttpClient()
 {
-    BaseAddress = new Uri($"https://localhost:{builder.Configuration["port"]}/api/")
+    BaseAddress = new Uri($"http://localhost:{builder.Configuration["port"]}/")
 };
 
 httpClient.DefaultRequestHeaders.Accept.Clear();

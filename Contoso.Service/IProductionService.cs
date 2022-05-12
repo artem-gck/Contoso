@@ -10,5 +10,7 @@ namespace Contoso.Service
     public interface IProductionService
     {
         public Task<List<Product>> GetProducts();
+
+        public Task<int> AddProduct(Product product);
     }
 }
